@@ -51,8 +51,8 @@ u16 Timout_Count2=200;//—ßœ∞≥¨ ±ºÏ≤‚  30√Î
 void TaskSet(void *p_arg)
 {
    // INT8U i;
-    u32 seed;
-    u8 random_data,i;
+    u32 seed=0;
+    u8 random_data;
    //INT32U msg = 0;
     //INT8U err = 0;
     OS_CPU_SR  cpu_sr = 0;

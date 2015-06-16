@@ -22,7 +22,7 @@ void TaskSi4432Read(void* p_arg)
 //  EXTI_InitTypeDef EXTI_InitStructure;
      INT32U msg;
      INT8U err;
-    u8  SI4432_RxLenth,i;//接收长度
+    u8  SI4432_RxLenth = 0;//接收长度
     for (;;)
     {
       msg = (MSG_t)OSQPend(Si4432ReadMBox, 0, &err);

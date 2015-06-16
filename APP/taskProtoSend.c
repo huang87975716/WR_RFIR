@@ -30,7 +30,6 @@ void TaskProtoSend(void *p_arg)
     INT8U err;
     INT8U *msg;
 
-   static uint8_t IRSendStaMach = 0;
    static u8 cmd=0,DeviceName=0,DeviceCode=0;
    // SendString("TaskProtoSend \n");
     p_arg = p_arg;

@@ -45,7 +45,6 @@ void TaskTest(void *p_arg)
   //  unsigned char buf[]="0123456789abcdefghijklmnopqrstuvwxyz";
     INT32U msg;
     u8 send_sig=0;  //发送信号 标志位 1：学习成功 2：学习失败 3：正在学习中
-    u8  SI4432_RxLenth;// 接收长度
     p_arg = p_arg;
 
     for (;;)

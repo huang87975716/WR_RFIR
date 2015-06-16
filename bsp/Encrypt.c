@@ -298,7 +298,7 @@ void SI4432_Protocol(u8 *receive_buf )
 {
 
 static u8 si4432_cnt=0;
- u8 i,HEAD,CMD;
+ u8 i,CMD;
 
 
    //  id_check=Check_Id();//ID½âÎö

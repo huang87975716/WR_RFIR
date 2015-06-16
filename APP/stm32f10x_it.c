@@ -334,7 +334,7 @@ u8 USART2_TX_Finish=1; // USART2发送完成标志位
 
 void USART2_IRQHandler(void)
 {
-    u32 cnt;
+    u32 cnt=0;
     u16 DATA_LEN;
     u8 USART2_ProBuf_DATA[220];
     u16 i;
