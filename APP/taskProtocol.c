@@ -25,6 +25,19 @@
  *
  * Returns     : None.
  *******************************************************************************/
+ 
+#if 1
+//testing codes for CT361
+#define CT361 9
+void SendCmdToCt361(IDPROTOCOL_t *ptr);
+#define CT361_StartSearch					0xF1;
+#define	CT361_StopSearch					0xF2;
+#define CT361_SendIRCmdInteral		0xF3;
+#define CT361_KeepOnSearching			0xF4;
+#define	CT361_SearchResutls				0xE1;
+#define CT361_SearchReachTheEnd		0xE2
+#endif
+
 void TaskProtocol(void *p_arg)
 {
     MSG_t msg;
@@ -44,7 +57,7 @@ void TaskProtocol(void *p_arg)
             // 串口1接收到协议数据
             case UART1_BUFF0_RECV:
             case UART1_BUFF1_RECV:
-                pProto = &gU1RecvBuff[msg - UART1_BUFF0_RECV];
+                pProto = &gU1RecvBuff[msg - UART1_BUFF0_RECV];//????jason
              //   p = (INT8U *)pProto;
 
                   if ((pProto->direction & ID_DESTMASK) == ID_RFIRBOARD)
@@ -61,12 +74,17 @@ void TaskProtocol(void *p_arg)
                                 }
                     }
                 }
+								
+				if ((pProto->direction & ID_DESTMASK) == CT361)
+				{
+					SendCmdToCt361(pProto);//sent data to CT361
+				}
                     // 查看是否需要应答
-                   if (IS_PROTO_NEED_ACK(pProto))
-                 {
-                     // 返回应答数据
-                     SendIDAck(USART1, pProto);
-                 }
+                if (IS_PROTO_NEED_ACK(pProto))
+                {
+                    // 返回应答数据
+                    SendIDAck(USART1, pProto);
+                }
                 break;
 
             default:
@@ -75,4 +93,32 @@ void TaskProtocol(void *p_arg)
 
     }
 }
+
+void SendCmdToCt361(IDPROTOCOL_t *ptr)
+{
+	PROTOCOL_t *BufferToCt361;
+	unsigned char i;
+	BufferToCt361->checksum = 0;
+	//清空BufferToCt361
+	BufferToCt361->header = 0x16;
+	BufferToCt361->command = ptr->data[0];
+	BufferToCt361->length = ptr->data[1];
+	BufferToCt361->data[0] = ptr->data[2];
+	BufferToCt361->data[1] = ptr->data[3];
+	BufferToCt361->data[2] = ptr->data[4];
+	BufferToCt361->data[3] = ptr->data[5];	
+	for (i = 0;i<BufferToCt361->length;i++)
+	{
+		BufferToCt361->checksum = BufferToCt361->checksum + ptr->data[i+2];
+	}
+	BufferToCt361->checksum = BufferToCt361->checksum + BufferToCt361->header \
+														+	BufferToCt361->command + BufferToCt361->length;
+	
+	BufferToCt361->end = 0x08;
+	SendProtocol(USART2,BufferToCt361);
+	
+	DelayMs(100);
+	Send_Stop(USART2);
+}
+
 

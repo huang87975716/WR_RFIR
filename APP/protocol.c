@@ -365,6 +365,17 @@ void ReV_CH361ReVProtocol(INT8U *buf)
         {
              u2p->end = buf[i];
              i++;
+			switch(u2p->command)
+			{
+				case 0x81:
+					SendString("CT361 OK\n");//sent to PC
+				break;
+				case 0xC1:
+					SendString("CT361 failed\n");//sent to PC
+				break;
+				default:
+				break;
+			}
              // 判断END
              if (learn_cmd==1)  //学习开始标志位允许学习
           {
