@@ -20,5 +20,7 @@ void Send2String(u8 ch[]);
 void Outint(long i);
 void delay_10us(u16 nTime);
 void DelayMs(u16 nTime);
+void USART_printf(USART_TypeDef* USARTx, uint8_t *Data,...);
+
 #endif
 
