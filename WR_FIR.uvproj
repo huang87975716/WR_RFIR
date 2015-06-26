@@ -562,14 +562,9 @@
               <FilePath>.\APP\remote_urc_index.c</FilePath>
             </File>
             <File>
-              <FileName>remote_UART_PRO.c</FileName>
+              <FileName>taskCT361InternalCommand.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\APP\remote_UART_PRO.c</FilePath>
-            </File>
-            <File>
-              <FileName>remote_ioctl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\APP\remote_ioctl.c</FilePath>
+              <FilePath>.\APP\taskCT361InternalCommand.c</FilePath>
             </File>
           </Files>
         </Group>

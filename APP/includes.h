@@ -48,6 +48,7 @@
 #include "stm32f10x_tim.h"
 #include "system_stm32f10x.h"
 #include "IWatchDog.h"
+#include "taskCT361InternalCommand.h"
 
 /*º¯ÊıÉùÃ÷*/
 //extern void HardwareWSystemInit(void);

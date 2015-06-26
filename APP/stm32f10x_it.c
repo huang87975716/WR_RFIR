@@ -174,9 +174,11 @@ void USART1_IRQHandler(void)
              // ÅÐ¶ÏÐ£ÑéºÍ
             if (u1p->checksum == u1RecvCh)
             {
-                if (u1BufferSwitch)
+                
+								OSQPost(CT361INTERNALMBox, (void*)u1p);
+								if (u1BufferSwitch)
                 {
-                    OSQPost(ProtocolMBox, (void*)UART1_BUFF1_RECV);
+                    OSQPost(ProtocolMBox, (void*)u1p);
                 }
                 else
                 {

@@ -99,6 +99,15 @@ void TaskSet(void *p_arg)
                  &TaskSi4432ReadStk[TASK_SET_STKSIZE-1],
                  TASK_Si4432_READ_PRIO );
 
+		OSTaskCreate(TaskCT361Internal,
+						 (void*)0,
+						 &TaskCT361InternalStk[TASK_CT361_INTERNAL_STKSIZE-1],
+						 TASK_CT361_INTERNAL_PRIO );
+
+		OSTaskCreate(TaskCT361Search,
+                 (void*)0,
+                 &TaskCT361SearchStk[TASK_CT361_SEARCH_STKSIZE-1],
+                 TASK_CT361_SEARCH_PRIO );
 
 /********************************************************************************
  * Description : 创建消息队列
@@ -108,6 +117,8 @@ void TaskSet(void *p_arg)
     ProtoSendMBox = OSQCreate(&ProtoSendQBuff[0], TASK_PROTOSEND_QSIZE);
     TestMBox      = OSQCreate(&TestQBuff[0], TASK_TEST_QSIZE);
     Si4432ReadMBox   = OSQCreate(&Si4432ReadQBuff[0], TASK_Si4432READ_QSIZE);
+		CT361INTERNALMBox = OSQCreate(&CT361InternalQBuff[0], TASK_TASKCT361INTERNAL_QSIZE);
+		CT361SEARCHMBox = OSQCreate(&CT361SEARCHQBuff[0],TASK_TASKCT361SEARCH_QSIZE);
 
    OS_EXIT_CRITICAL();
    SysTickInit();
